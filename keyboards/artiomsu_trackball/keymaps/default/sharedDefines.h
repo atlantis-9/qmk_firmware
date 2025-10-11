@@ -2,7 +2,6 @@
 #define SHAREDDEFINES_H
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 extern uint16_t custom_dpi;
 extern const uint16_t step_size;

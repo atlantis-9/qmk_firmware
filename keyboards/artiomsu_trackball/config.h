@@ -5,13 +5,17 @@
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
 
 /* PMW3360 Settings */
-#define PMW33XX_LIFTOFF_DISTANCE 0x07
+#define PMW33XX_LIFTOFF_DISTANCE 0x02
 //#define PMW33XX_LIFTOFF_DISTANCE 0x05
 // this is NCS on the board
 #define PMW33XX_CS_PIN GP5
 #define SPI_SCK_PIN GP2
 #define SPI_MISO_PIN GP0
 #define SPI_MOSI_PIN GP7
+
+#define WS2812_PIO_USE_PIO1 // use state machine 1 for rgb
+
+#define RGBLIGHT_EFFECT_SNAKE_LENGTH 1
 
 #define RAW_USAGE_PAGE 0xFF60
 #define RAW_USAGE_ID 0x61

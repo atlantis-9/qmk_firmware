@@ -30,6 +30,8 @@ void keyboard_post_init_user(void) {
     pointing_device_set_cpi(400);
     scroll_divisor = scroll_divisor_default;
     scroll_invert = scroll_invert_default;
+    rgblight_sethsv_noeeprom(13, 250, 150);
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 1);
 }
 
 void manageDPI(bool up){
