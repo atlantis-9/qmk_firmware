@@ -26,12 +26,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {10,5,2};
+
 void keyboard_post_init_user(void) {
     pointing_device_set_cpi(400);
     scroll_divisor = scroll_divisor_default;
     scroll_invert = scroll_invert_default;
     rgblight_sethsv_noeeprom(13, 250, 150);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 1);
+    rgblight_set_speed_noeeprom(200);
 }
 
 void manageDPI(bool up){
