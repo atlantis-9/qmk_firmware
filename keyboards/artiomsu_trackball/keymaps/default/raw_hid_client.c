@@ -39,8 +39,22 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case HID_RAW_CUSTOM_KEY:
             switch (packet->payload[0])
             {
-                case 0x01:
+                case HID_TB_DRAG_SCROLL:
                     set_scrolling = packet->payload[1];
+                    set_scrolling_horizontal = false;
+                break;
+                case HID_TB_D_S_1:
+                    set_scrolling_horizontal = packet->payload[1];
+                    set_scrolling = false;
+                break;
+                case HID_QK_BOOT:
+                    rgblight_enable_noeeprom();
+                    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+                    rgblight_sethsv_noeeprom(0, 250, 100);
+                    reset_keyboard();
+                break;
+                case HID_QK_COMPILE:
+                    SEND_STRING("cd /temp/GIT/qmk_firmware && make clean && qmk flash -kb artiomsu_trackball -km default");
                 break;
                 default:
                 break;
@@ -99,6 +113,79 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                         break;
                     }
                 break;
+                case HID_RAW_LED:
+                    switch (packet->payload[1])
+                    {
+                        case HID_TB_LED_TIMEOUT_30S:
+                            rgb_time_out_value = 30000;
+                            snprintf(info, sizeof(info), "LED TIMEOUT: 30s");
+                            raw_hid_send_info(&pc, info, sizeof(info));
+                        break;
+                        case HID_TB_LED_TIMEOUT_1M:
+                            rgb_time_out_value = 60000;
+                            snprintf(info, sizeof(info), "LED TIMEOUT: 1m");
+                            raw_hid_send_info(&pc, info, sizeof(info));
+                        break;
+                        case HID_TB_LED_TIMEOUT_5M:
+                            rgb_time_out_value = 300000;
+                            snprintf(info, sizeof(info), "LED TIMEOUT: 5m");
+                            raw_hid_send_info(&pc, info, sizeof(info));
+                        break;
+                        case HID_TB_LED_TIMEOUT_10M:
+                            rgb_time_out_value = 600000;
+                            snprintf(info, sizeof(info), "LED TIMEOUT: 10m");
+                            raw_hid_send_info(&pc, info, sizeof(info));
+                        break;
+                        case HID_TB_LED_TIMEOUT_OFF:
+                            rgblight_disable_noeeprom();
+                            snprintf(info, sizeof(info), "LED TIMEOUT: OFF");
+                            raw_hid_send_info(&pc, info, sizeof(info));
+                        break;
+                        case HID_TB_LED_TOGGLE:
+                            rgb_show = !rgb_show;
+                            if(rgb_show){
+                                snprintf(info, sizeof(info), "LEDs: ON");
+                            }else{
+                                snprintf(info, sizeof(info), "LEDs: OFF");
+                            }
+                            raw_hid_send_info(&pc, info, sizeof(info));
+                        break;
+                        case HID_TB_LED_BRIGHTNESS_UP:
+                            rgblight_increase_val_noeeprom();
+                        break;
+                        case HID_TB_LED_BRIGHTNESS_DOWN:
+                            rgblight_decrease_val_noeeprom();
+                        break;
+                        case HID_TB_LED_HUE_UP:
+                            rgblight_increase_hue_noeeprom();
+                        break;
+                        case HID_TB_LED_HUE_DOWN:
+                            rgblight_decrease_hue_noeeprom();
+                        break;
+                        case HID_TB_LED_SAT_UP:
+                            rgblight_increase_sat_noeeprom();
+                        break;
+                        case HID_TB_LED_SAT_DOWN:
+                            rgblight_decrease_sat_noeeprom();
+                        break;
+                        case HID_TB_LED_MODE_UP:
+                            rgblight_step_noeeprom();
+                        break;
+                        case HID_TB_LED_MODE_DOWN:
+                            rgblight_step_reverse_noeeprom();
+                        break;
+                        case HID_TB_LED_MODE_SNAKE:
+                            rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 1);
+                        break;
+                        case HID_TB_LED_MODE_KNIGHT:
+                            rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 1);
+                        break;
+                        case HID_TB_LED_MODE_TWINKLE:
+                            rgblight_mode_noeeprom(RGBLIGHT_MODE_TWINKLE + 3);
+                        break;
+                        default:
+                        break;
+                    }
                 default:
                 break;
             }

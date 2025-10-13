@@ -16,13 +16,23 @@
         "driver": "vendor"
     },
     "features": {
-        "bootmagic": true,
-        "extrakey": true,
+        "bootmagic": false,
         "mousekey": true,
-        "nkro": true,
-        "pointing_device": true,
+        "extrakey": false,
+        "console": false,
+        "command": false,
+        "nkro": false,
+        "backlight": false,
+        "combo": false,
+        "leader": false,
+        "dynamic_macro": false,
+        "os_detection": false,
+        "caps_word": false,
+        "rgblight": true,
+        "programmable_button": false,
+        "audio": false,
         "raw": true,
-        "rgblight": true
+        "pointing_device": true
     },
     "rgblight": {
         "led_count": 6,
@@ -47,9 +57,6 @@
                 {"matrix": [0, 0], "label":"Top Left Left", "x":0, "y":0, "h":2}
             ]
         }
-    },
-    "dynamic_keymap": {
-        "layer_count": 8
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

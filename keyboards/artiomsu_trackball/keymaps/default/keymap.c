@@ -5,7 +5,7 @@
 
 uint16_t custom_dpi = 400;
 const uint16_t step_size = 200;
-const uint16_t minimum_dpi = 200;
+const uint16_t minimum_dpi = 100;
 const uint16_t max_dpi = 12000;
 
 bool set_scrolling = false;
@@ -19,6 +19,7 @@ float scroll_accumulated_v = 0;
 
 const bool scroll_invert_default = true;
 bool scroll_invert = scroll_invert_default;
+bool set_scrolling_horizontal = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [Layer_main] = LAYOUT(
@@ -28,14 +29,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {10,5,2};
 
-void keyboard_post_init_user(void) {
-    pointing_device_set_cpi(400);
-    scroll_divisor = scroll_divisor_default;
-    scroll_invert = scroll_invert_default;
-    rgblight_sethsv_noeeprom(13, 250, 150);
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 1);
-    rgblight_set_speed_noeeprom(200);
-}
 
 void manageDPI(bool up){
     uint16_t step = step_size;
@@ -97,9 +90,13 @@ void manageScroll(bool up){
 // Function to handle mouse reports and perform drag scrolling
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // Check if drag scrolling is active
-    if (set_scrolling) {
+    if(mouse_report.x != 0 || mouse_report.y != 0){
+        rgb_timed_out = false;
+        rgb_timeout_counter=0; //reset timeout counter also, so that it will always count from the time the scroll wheel was active.
+    }
+    if (set_scrolling || set_scrolling_horizontal) {
         // Calculate and accumulate scroll values based on mouse movement and divisors
-        scroll_accumulated_h += (float)mouse_report.x / scroll_divisor;
+        scroll_accumulated_h += set_scrolling_horizontal ? 0 : ((float)mouse_report.x / scroll_divisor);
         scroll_accumulated_v += (float)mouse_report.y / scroll_divisor;
 
         // Assign integer parts of accumulated scroll values to the mouse report
