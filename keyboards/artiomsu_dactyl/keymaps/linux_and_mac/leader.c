@@ -38,10 +38,14 @@ void leader_end_user(void) {
         password_bypass = false;
     } else if
     (leader_sequence_two_keys(KC_C, KC_O)) {
-      if(is_keyboard_left()){
-        SEND_STRING("cd /temp/GIT/qmk_firmware && make clean && qmk flash -kb artiomsu_dactyl -km linux_and_mac -bl uf2-split-left");
+      if(current_client == NULL){
+        if(is_keyboard_left()){
+            SEND_STRING("cd /temp/GIT/qmk_firmware && make clean && qmk flash -kb artiomsu_dactyl -km linux_and_mac -bl uf2-split-left");
+        }else{
+            SEND_STRING("cd /temp/GIT/qmk_firmware && make clean && qmk flash -kb artiomsu_dactyl -km linux_and_mac -bl uf2-split-right");
+        }
       }else{
-        SEND_STRING("cd /temp/GIT/qmk_firmware && make clean && qmk flash -kb artiomsu_dactyl -km linux_and_mac -bl uf2-split-right");
+        raw_hid_custom_key(current_client, HID_QK_COMPILE, true);
       }
     //   #if defined(EE_HANDS)
     //     #if defined(INIT_EE_HANDS_LEFT)

@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,
 
         //# right hand ###################################################################################################################
-        KC_KB_MUTE,             _______,            _______,                    _______,                _______,          _______,                  QK_BOOT,
+        KC_KB_MUTE,             _______,            _______,                    _______,                _______,          _______,                  ST_M_QK_BOOT,
         KC_KB_VOLUME_UP,        _______,            _______,                    _______,                _______,          ST_M_password_bypass,     ST_M_enable_bunny_hop,
         KC_KB_VOLUME_DOWN,      LCTL(KC_H),         LCTL(KC_J),                 LCTL(KC_K),             LCTL(KC_L),       _______,                  _______,
                                 _______,            ST_M_mac_mode_toggle,       _______,                _______,          _______,                  _______,
@@ -164,8 +164,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [Layer_mouse] = LAYOUT_5x7(
         // left hand
-        QK_BOOT,    _______,    _______,            _______,        _______,    _______,            _______,
-        _______,    _______,    _______,            _______,        _______,    ST_M_rgb_twinkle,   _______,
+   ST_M_QK_BOOT, ST_M_d_self, ST_M_d_mball,         _______,        _______,    _______,            _______,
+ST_M_HID_LED_TOGGLE,_______,    _______,            _______,        _______,    ST_M_rgb_twinkle,   _______,
         _______,    _______,    ST_M_rgb_snake,     ST_M_rgb_knight,_______,    _______,            _______,
         _______,    _______,    _______,            _______,        KC_NUM,     KC_CAPS,
         _______,    _______,    _______,            _______,

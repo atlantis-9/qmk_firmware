@@ -7,6 +7,7 @@ bool combos_on = true; // use combo feature by default
 bool mac_mode = false;
 bool colemak_mode = false;
 uint32_t rgb_timeout_counter = 0;
+bool change_all_leds = false;
 
 
 uint16_t unlock_password_index = 0;
@@ -88,51 +89,115 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             enable_bunnyhop = !enable_bunnyhop;
         break;
         case ST_M_brightness_up:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_BRIGHTNESS_UP);
+                if(!change_all_leds){break;}
+            }
             rgblight_increase_val_noeeprom();
         break;
         case ST_M_brightness_down:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_BRIGHTNESS_DOWN);
+                if(!change_all_leds){break;}
+            }
             rgblight_decrease_val_noeeprom();
         break;
         case ST_M_hue_up:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_HUE_UP);
+                if(!change_all_leds){break;}
+            }
             rgblight_increase_hue_noeeprom();
         break;
         case ST_M_hue_down:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_HUE_DOWN);
+                if(!change_all_leds){break;}
+            }
             rgblight_decrease_hue_noeeprom();
         break;
         case ST_M_sat_up:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_SAT_UP);
+                if(!change_all_leds){break;}
+            }
             rgblight_increase_sat_noeeprom();
         break;
         case ST_M_sat_down:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_SAT_DOWN);
+                if(!change_all_leds){break;}
+            }
             rgblight_decrease_sat_noeeprom();
         break;
         case ST_M_mode_up:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_MODE_UP);
+                if(!change_all_leds){break;}
+            }
             rgblight_step_noeeprom();
         break;
         case ST_M_mode_down:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_MODE_DOWN);
+                if(!change_all_leds){break;}
+            }
             rgblight_step_reverse_noeeprom();
         break;
         case ST_M_rgb_snake:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_MODE_SNAKE);
+                if(!change_all_leds){break;}
+            }
             rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 1);
         break;
         case ST_M_rgb_twinkle:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_MODE_TWINKLE);
+                if(!change_all_leds){break;}
+            }
             rgblight_mode_noeeprom(RGBLIGHT_MODE_TWINKLE + 3);
         break;
         case ST_M_rgb_knight:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_MODE_KNIGHT);
+                if(!change_all_leds){break;}
+            }
             rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL + 1);
         break;
         case ST_M_toggle_rgb:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_TOGGLE);
+                if(!change_all_leds){break;}
+            }
             rgb_show = !rgb_show;
         break;
         case ST_M_led_timeout_30s:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_TIMEOUT_30S);
+                if(!change_all_leds){break;}
+            }
             rgb_time_out_value = 30000;
         break;
         case ST_M_led_timeout_1m:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_TIMEOUT_1M);
+                if(!change_all_leds){break;}
+            }
             rgb_time_out_value = 60000;
         break;
         case ST_M_led_timeout_5m:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_TIMEOUT_5M);
+                if(!change_all_leds){break;}
+            }
             rgb_time_out_value = 300000;
         break;
         case ST_M_led_timeout_10m:
+            if(current_client != NULL){
+                raw_hid_set_setting(current_client, HID_RAW_LED, HID_TB_LED_TIMEOUT_10M);
+                if(!change_all_leds){break;}
+            }
             rgb_time_out_value = 600000;
         break;
         case ST_M_mac_mode_toggle:
@@ -153,6 +218,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
         case ST_M_password_bypass:
             password_bypass = !password_bypass;
+        break;
+        case ST_M_d_self:
+            current_client = NULL;
+        break;
+        case ST_M_d_mball:
+            current_client = &trackball;
+        break;
+        case ST_M_QK_BOOT:
+            if(current_client == NULL){
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+                rgblight_sethsv_noeeprom(0, 250, 100);
+                reset_keyboard();
+            }else{
+                raw_hid_custom_key(current_client, HID_QK_BOOT, true);
+            }
         break;
         case RAW_HID_M_1:
             SEND_STRING("about to send hid. ");
@@ -179,6 +259,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RAW_HID_TB_SCROLL_INVERT:
             raw_hid_set_setting(&broadcast, HID_RAW_TB_S_SCROLL, 0x04);
         break;
+        case ST_M_HID_LED_TOGGLE:
+            change_all_leds = !change_all_leds;
+        break;
     }
     }
 
@@ -190,10 +273,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         break;
         case RAW_HID_TB_DRAG_SCROLL:
-            raw_hid_custom_key(&broadcast, 0x01, record->event.pressed);
+            raw_hid_custom_key(&broadcast, HID_TB_DRAG_SCROLL, record->event.pressed);
         break;
         case RAW_HID_TB_D_S_1:
-            raw_hid_custom_key(&broadcast, 0x02, record->event.pressed);
+            raw_hid_custom_key(&broadcast, HID_TB_D_S_1, record->event.pressed);
         break;
         return false;
     }

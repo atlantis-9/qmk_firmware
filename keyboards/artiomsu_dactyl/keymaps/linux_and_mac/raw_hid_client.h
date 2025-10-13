@@ -31,6 +31,34 @@ enum operation {
 enum trackball_settings {
     HID_RAW_TB_S_DPI = 0x01,
     HID_RAW_TB_S_SCROLL = 0x02,
+    HID_RAW_LED = 0x03,
+};
+
+enum trackball_custom_key {
+    HID_TB_DRAG_SCROLL = 0x01,
+    HID_TB_D_S_1 = 0x02,
+    HID_QK_BOOT = 0x03,
+    HID_QK_COMPILE = 0x04,
+};
+
+enum trackball_settings_led_timeout {
+    HID_TB_LED_TIMEOUT_30S = 0x01,
+    HID_TB_LED_TIMEOUT_1M = 0x02,
+    HID_TB_LED_TIMEOUT_5M = 0x03,
+    HID_TB_LED_TIMEOUT_10M = 0x04,
+    HID_TB_LED_TIMEOUT_OFF = 0x05,
+    HID_TB_LED_TOGGLE = 0x06,
+    HID_TB_LED_BRIGHTNESS_UP = 0x07,
+    HID_TB_LED_BRIGHTNESS_DOWN = 0x08,
+    HID_TB_LED_HUE_UP = 0x09,
+    HID_TB_LED_HUE_DOWN = 0x0a,
+    HID_TB_LED_SAT_UP = 0x0b,
+    HID_TB_LED_SAT_DOWN = 0x0c,
+    HID_TB_LED_MODE_UP = 0x0d,
+    HID_TB_LED_MODE_DOWN = 0x0e,
+    HID_TB_LED_MODE_SNAKE = 0x0f,
+    HID_TB_LED_MODE_KNIGHT = 0x10,
+    HID_TB_LED_MODE_TWINKLE = 0x11
 };
 
 struct raw_hid_client

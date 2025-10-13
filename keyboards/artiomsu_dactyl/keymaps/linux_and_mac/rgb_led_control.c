@@ -154,6 +154,7 @@ void rgb_manage_timeout(bool timed_out){
     if(timed_out){
         if(rgblight_is_enabled()){
             rgblight_disable_noeeprom();
+            raw_hid_set_setting(&broadcast, HID_RAW_LED, HID_TB_LED_TIMEOUT_OFF);
         }
     }else{
         if(!rgblight_is_enabled()){

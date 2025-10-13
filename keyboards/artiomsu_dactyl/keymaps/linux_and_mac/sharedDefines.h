@@ -70,6 +70,10 @@ enum custom_keycodes {
   ST_M_rgb_snake,
   ST_M_rgb_twinkle,
   ST_M_rgb_knight,
+  ST_M_d_self,
+  ST_M_d_mball,
+  ST_M_QK_BOOT,
+  ST_M_HID_LED_TOGGLE, // if true, then leds for all connected devices will be changed, otherwise only the selected device
   RAW_HID_M_1,
   RAW_HID_TB_DPI_UP,
   RAW_HID_TB_DPI_DOWN,
@@ -86,6 +90,7 @@ extern bool rgb_show;
 extern bool rgb_timed_out;
 extern uint32_t rgb_timeout_counter;
 extern uint32_t rgb_time_out_value;  // in milliseconds
+extern bool change_all_leds;
 
 extern bool use_bunnyhop;
 extern bool enable_bunnyhop;
@@ -136,5 +141,8 @@ void rgb_manage_macro_recording(bool on);
 void rgb_manage_password_lock(bool on);
 
 extern bool dynamic_macro_recording;
+
+extern struct raw_hid_client trackball;
+extern struct raw_hid_client *current_client;
 
 #endif

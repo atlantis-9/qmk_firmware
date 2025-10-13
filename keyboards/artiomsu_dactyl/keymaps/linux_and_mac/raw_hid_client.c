@@ -4,6 +4,8 @@ struct raw_hid_client trackball = {0x9000, 0x9001};
 struct raw_hid_client pc = {0x0000, 0x0000};
 struct raw_hid_client broadcast = {0xffff, 0xffff};
 
+struct raw_hid_client *current_client = NULL;
+
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     if(length != RAW_EPSIZE){
         return;
