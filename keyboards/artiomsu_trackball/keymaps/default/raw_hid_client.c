@@ -137,6 +137,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                             raw_hid_send_info(&pc, info, sizeof(info));
                         break;
                         case HID_TB_LED_TIMEOUT_OFF:
+                            rgb_timed_out = true;
                             rgblight_disable_noeeprom();
                             snprintf(info, sizeof(info), "LED TIMEOUT: OFF");
                             raw_hid_send_info(&pc, info, sizeof(info));
