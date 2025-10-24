@@ -52,18 +52,21 @@
         }
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_1x5": {
             "layout": [
-                {"matrix": [0, 0], "label":"Top Left Left", "x":0, "y":0, "h":2}
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 1], "x": 1, "y": 0 },
+                { "matrix": [0, 2], "x": 2, "y": 0 },
+                { "matrix": [0, 3], "x": 3, "y": 0 },
+                { "matrix": [0, 4], "x": 4, "y": 0 }
             ]
         }
     },
-    "diode_direction": "COL2ROW",
     "matrix_pins": {
-        "direct": [
-            ["GP15"]
-        ]
+        "cols": ["GP12", "GP11", "GP10", "GP9", "GP8"],
+        "rows": ["GP13"]
     },
+    "diode_direction": "COL2ROW",
     "build": {
         "lto": true
     }

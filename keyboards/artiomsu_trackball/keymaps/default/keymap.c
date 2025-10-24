@@ -9,6 +9,7 @@ const uint16_t minimum_dpi = 100;
 const uint16_t max_dpi = 12000;
 
 bool set_scrolling = false;
+bool set_scrolling_macro = false;
 const float scroll_divisor_default = 5.0;
 float scroll_divisor = scroll_divisor_default;
 const float scroll_divisor_min = 1.0;
@@ -22,8 +23,8 @@ bool scroll_invert = scroll_invert_default;
 bool set_scrolling_horizontal = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [Layer_main] = LAYOUT(
-            KC_A
+    [Layer_main] = LAYOUT_1x5(
+        MS_BTN1, MS_BTN2, MS_BTN3, ST_MACRO_SCROLL, ST_QK_BOOT
     )
 };
 
@@ -94,7 +95,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         rgb_timed_out = false;
         rgb_timeout_counter=0; //reset timeout counter also, so that it will always count from the time the scroll wheel was active.
     }
-    if (set_scrolling || set_scrolling_horizontal) {
+    if (set_scrolling || set_scrolling_macro || set_scrolling_horizontal) {
         // Calculate and accumulate scroll values based on mouse movement and divisors
         scroll_accumulated_h += set_scrolling_horizontal ? 0 : ((float)mouse_report.x / scroll_divisor);
         scroll_accumulated_v += (float)mouse_report.y / scroll_divisor;
@@ -116,4 +117,22 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         mouse_report.y = 0;
     }
     return mouse_report;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case ST_MACRO_SCROLL:
+            set_scrolling_macro = record->event.pressed;
+        break;
+        case ST_QK_BOOT:
+            if (record->event.pressed) {
+                rgblight_enable_noeeprom();
+                rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+                rgblight_sethsv_noeeprom(0, 250, 100);
+                reset_keyboard();
+            }
+        break;
+        return false;
+    }
+    return true;
 }

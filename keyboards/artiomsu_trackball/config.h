@@ -19,3 +19,14 @@
 
 #define RAW_USAGE_PAGE 0xFF60
 #define RAW_USAGE_ID 0x61
+
+
+/* temp notes on button wirings
+gp13 - yellow - row
+gp12 - black - col1
+gp11 - white - col2
+gp10 - purple - col3
+gp9  - gray  - col4
+gp8  - red   - col5
+
+*/
