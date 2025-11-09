@@ -223,7 +223,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             current_client = NULL;
         break;
         case ST_M_d_mball:
-            current_client = &trackball;
+            current_client = &manaball;
+        break;
+        case ST_M_d_mbroad:
+            current_client = &broadcast;
         break;
         case ST_M_QK_BOOT:
             if(current_client == NULL){
@@ -239,25 +242,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             simple_hid_test_send_key(&broadcast, 0x0a);
         break;
         case RAW_HID_TB_DPI_UP:
-            raw_hid_set_setting(&broadcast, HID_RAW_TB_S_DPI, 0x01);
+            raw_hid_set_setting(current_client, HID_RAW_TB_S_DPI, 0x01);
         break;
         case RAW_HID_TB_DPI_DOWN:
-            raw_hid_set_setting(&broadcast, HID_RAW_TB_S_DPI, 0x02);
+            raw_hid_set_setting(current_client, HID_RAW_TB_S_DPI, 0x02);
         break;
         case RAW_HID_TB_DPI_DEFAULT:
-            raw_hid_set_setting(&broadcast, HID_RAW_TB_S_DPI, 0x03);
+            raw_hid_set_setting(current_client, HID_RAW_TB_S_DPI, 0x03);
         break;
         case RAW_HID_TB_SCROLL_UP:
-            raw_hid_set_setting(&broadcast, HID_RAW_TB_S_SCROLL, 0x01);
+            raw_hid_set_setting(current_client, HID_RAW_TB_S_SCROLL, 0x01);
         break;
         case RAW_HID_TB_SCROLL_DOWN:
-            raw_hid_set_setting(&broadcast, HID_RAW_TB_S_SCROLL, 0x02);
+            raw_hid_set_setting(current_client, HID_RAW_TB_S_SCROLL, 0x02);
         break;
         case RAW_HID_TB_SCROLL_DEFAULT:
-            raw_hid_set_setting(&broadcast, HID_RAW_TB_S_SCROLL, 0x03);
+            raw_hid_set_setting(current_client, HID_RAW_TB_S_SCROLL, 0x03);
         break;
         case RAW_HID_TB_SCROLL_INVERT:
-            raw_hid_set_setting(&broadcast, HID_RAW_TB_S_SCROLL, 0x04);
+            raw_hid_set_setting(current_client, HID_RAW_TB_S_SCROLL, 0x04);
         break;
         case ST_M_HID_LED_TOGGLE:
             change_all_leds = !change_all_leds;
@@ -273,10 +276,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         break;
         case RAW_HID_TB_DRAG_SCROLL:
-            raw_hid_custom_key(&broadcast, HID_TB_DRAG_SCROLL, record->event.pressed);
+            raw_hid_custom_key(current_client, HID_TB_DRAG_SCROLL, record->event.pressed);
         break;
         case RAW_HID_TB_D_S_1:
-            raw_hid_custom_key(&broadcast, HID_TB_D_S_1, record->event.pressed);
+            raw_hid_custom_key(current_client, HID_TB_D_S_1, record->event.pressed);
         break;
         return false;
     }

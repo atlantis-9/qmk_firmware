@@ -121,3 +121,5 @@ compile_commands.json
 via*.json
 /keyboards/**/keymaps/via/*
 /keyboards/**/keymaps/vial/*
+
+keyboards/ergodox_ez/keymaps/artiom_no_mouse_joined_with_mac

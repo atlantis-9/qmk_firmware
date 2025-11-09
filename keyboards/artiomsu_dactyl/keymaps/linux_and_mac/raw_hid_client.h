@@ -67,7 +67,10 @@ struct raw_hid_client
 	uint16_t pid;
 };
 
-extern struct raw_hid_client trackball;
+extern struct raw_hid_client trackball; // generic trackball for testing
+extern struct raw_hid_client manaball;
+extern struct raw_hid_client dactyl;
+extern struct raw_hid_client macropad;
 extern struct raw_hid_client pc;
 extern struct raw_hid_client broadcast;
 

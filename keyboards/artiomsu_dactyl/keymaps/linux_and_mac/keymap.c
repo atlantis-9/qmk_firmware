@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [Layer_mouse] = LAYOUT_5x7(
         // left hand
-   ST_M_QK_BOOT, ST_M_d_self, ST_M_d_mball,         _______,        _______,    _______,            _______,
+   ST_M_QK_BOOT, ST_M_d_self, ST_M_d_mball,         ST_M_d_mbroad,  _______,    _______,            _______,
 ST_M_HID_LED_TOGGLE,_______,    _______,            _______,        _______,    ST_M_rgb_twinkle,   _______,
         _______,    _______,    ST_M_rgb_snake,     ST_M_rgb_knight,_______,    _______,            _______,
         _______,    _______,    _______,            _______,        KC_NUM,     KC_CAPS,

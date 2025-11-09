@@ -74,6 +74,7 @@ enum custom_keycodes {
   ST_M_d_mball,
   ST_M_QK_BOOT,
   ST_M_HID_LED_TOGGLE, // if true, then leds for all connected devices will be changed, otherwise only the selected device
+  ST_M_d_mbroad,
   RAW_HID_M_1,
   RAW_HID_TB_DPI_UP,
   RAW_HID_TB_DPI_DOWN,
@@ -142,7 +143,6 @@ void rgb_manage_password_lock(bool on);
 
 extern bool dynamic_macro_recording;
 
-extern struct raw_hid_client trackball;
 extern struct raw_hid_client *current_client;
 
 #endif
