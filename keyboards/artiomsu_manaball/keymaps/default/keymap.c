@@ -1,5 +1,5 @@
 #include "sharedDefines.h"
-// make clean && qmk flash -kb artiomsu_trackball -km default
+// make clean && qmk flash -kb artiomsu_manaball -km default
 
 #define Layer_main 0
 

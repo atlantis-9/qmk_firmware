@@ -1,13 +1,13 @@
 {
-    "keyboard_name": "ArtiomSu Trackball",
+    "keyboard_name": "ArtiomSu ManaBall",
     "url": "https://github.com/ArtiomSu/qmk_firmware",
     "maintainer": "ArtiomSu",
     "manufacturer": "Artiom",
     "processor": "RP2040",
     "bootloader": "rp2040",
     "usb": {
-        "vid": "0x9000",
-        "pid": "0x9001",
+        "vid": "0x4A4A",
+        "pid": "0xBA11",
         "max_power": 100,
         "device_version": "0.0.1"
     },
