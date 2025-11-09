@@ -13,7 +13,7 @@ bool set_scrolling_macro = false;
 const float scroll_divisor_default = 5.0;
 float scroll_divisor = scroll_divisor_default;
 const float scroll_divisor_min = 1.0;
-const float scroll_divisor_max = 20.0;
+const float scroll_divisor_max = 30.0;
 
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;

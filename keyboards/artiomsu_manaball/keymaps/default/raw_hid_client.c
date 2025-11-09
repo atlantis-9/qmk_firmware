@@ -129,17 +129,17 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     {
                         case 0x01:
                             manageScroll(true);
-                            snprintf(info, sizeof(info), "SCROLL SPEED: %f", scroll_divisor);
+                            snprintf(info, sizeof(info), "SCROLL SPEED: %d", (int)(scroll_divisor));
                             raw_hid_send_info(&pc, info, sizeof(info));
                         break;
                         case 0x02:
                             manageScroll(false);
-                            snprintf(info, sizeof(info), "SCROLL SPEED: %f", scroll_divisor);
+                            snprintf(info, sizeof(info), "SCROLL SPEED: %d", (int)(scroll_divisor));
                             raw_hid_send_info(&pc, info, sizeof(info));
                         break;
                         case 0x03:
                             scroll_divisor = scroll_divisor_default;
-                            snprintf(info, sizeof(info), "SCROLL SPEED: %f", scroll_divisor);
+                            snprintf(info, sizeof(info), "SCROLL SPEED: %d", (int)(scroll_divisor));
                             raw_hid_send_info(&pc, info, sizeof(info));
                         break;
                         case 0x04:
