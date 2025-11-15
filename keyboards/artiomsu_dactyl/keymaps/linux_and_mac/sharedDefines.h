@@ -145,4 +145,7 @@ extern bool dynamic_macro_recording;
 
 extern struct raw_hid_client *current_client;
 
+extern int current_layer;
+extern int last_layer;
+
 #endif

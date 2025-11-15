@@ -265,6 +265,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case ST_M_HID_LED_TOGGLE:
             change_all_leds = !change_all_leds;
         break;
+        case RAW_HID_TB_D_S_1:
+            raw_hid_custom_key(current_client, HID_TB_D_S_1, record->event.pressed);
+        break;
     }
     }
 
@@ -277,9 +280,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
         case RAW_HID_TB_DRAG_SCROLL:
             raw_hid_custom_key(current_client, HID_TB_DRAG_SCROLL, record->event.pressed);
-        break;
-        case RAW_HID_TB_D_S_1:
-            raw_hid_custom_key(current_client, HID_TB_D_S_1, record->event.pressed);
         break;
         return false;
     }

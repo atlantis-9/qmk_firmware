@@ -120,3 +120,16 @@ void raw_hid_send_info(struct raw_hid_client *client, char* info, uint8_t length
         length
     );
 }
+
+void raw_hid_set_layer(struct raw_hid_client *client, uint8_t layer){
+    if(client == NULL){
+        return;
+    }
+    uint8_t data[1] = {layer};
+    raw_hid_send_to_router(
+        client,
+        HID_RAW_LAYER,
+        data,
+        1
+    );
+}

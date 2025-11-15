@@ -2,6 +2,8 @@
 
 bool rgb_show = true;
 bool rgb_timed_out = true; // set to true so that you will need to type in the password straight away
+int current_layer = 0;
+int last_layer = 0;
 uint32_t rgb_time_out_value = 300000; // in milliseconds // 5 minutes by default
 
 #define LAYER_NUM_LEDS_INDIC 10
@@ -181,6 +183,7 @@ void rgb_manage_password_lock(bool on){
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+    current_layer = get_highest_layer(state);
     default_layer_blink_unblink(layer_state_cmp(state, Layer_mac_main), RGB_L_M_S_L_MAC);
     default_layer_blink_unblink(layer_state_cmp(state, Layer_colemak), RGB_L_M_S_L_COLMAC);
     rgblight_set_layer_state(RGB_L_M_S_L_SYM, layer_state_cmp(state, Layer_symbols) || layer_state_cmp(state, Layer_mac_symbols));

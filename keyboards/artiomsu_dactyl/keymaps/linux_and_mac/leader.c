@@ -88,4 +88,12 @@ void matrix_scan_user(void) {
        }
        bunny_hop_delay_counter ++;
   }
+  if(current_layer != last_layer){
+    // here only check if Layer_track_ball is active or not
+    if(current_layer == Layer_track_ball || last_layer == Layer_track_ball){
+        raw_hid_set_layer(current_client, current_layer);
+    }
+  }
+
+  last_layer = current_layer;
 }

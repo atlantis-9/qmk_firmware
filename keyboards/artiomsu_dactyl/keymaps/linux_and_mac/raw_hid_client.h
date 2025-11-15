@@ -24,6 +24,7 @@ enum operation {
     HID_RAW_OP_SIMPLE_KEY = 0x01, // just for test
     HID_RAW_SET_SETTING = 0x02, // setting settings on other devices
     HID_RAW_CUSTOM_KEY = 0x03, // almost like keypress
+    HID_RAW_LAYER = 0x04, // layer
     HID_RAW_OP_INFO = 0xee, // mostly for sending info to pc
     HID_RAW_OP_SIMPLE_KEY_2 = 0xff // just for test
 };
@@ -78,4 +79,5 @@ void simple_hid_test_send_key(struct raw_hid_client *client, uint8_t key);
 void raw_hid_set_setting(struct raw_hid_client *client, uint8_t setting, uint8_t data);
 void raw_hid_custom_key(struct raw_hid_client *client, uint8_t key, bool pressed);
 void raw_hid_send_info(struct raw_hid_client *client, char* info, uint8_t length);
+void raw_hid_set_layer(struct raw_hid_client *client, uint8_t layer);
 #endif
