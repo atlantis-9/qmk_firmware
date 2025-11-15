@@ -3,6 +3,9 @@
 
 #include QMK_KEYBOARD_H
 
+#define Layer_main 0
+#define Layer_secondary 1
+
 enum custom_keycodes {
   ST_MACRO_SCROLL = SAFE_RANGE, // SAFE_RANGE sets the first one in the list to a value that won't interfere with anything
   ST_QK_BOOT,

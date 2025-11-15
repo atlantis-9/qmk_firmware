@@ -1,8 +1,6 @@
 #include "sharedDefines.h"
 // make clean && qmk flash -kb artiomsu_manaball -km default
 
-#define Layer_main 0
-
 uint16_t custom_dpi = 400;
 const uint16_t step_size = 200;
 const uint16_t minimum_dpi = 100;
@@ -10,7 +8,7 @@ const uint16_t max_dpi = 12000;
 
 bool set_scrolling = false;
 bool set_scrolling_macro = false;
-const float scroll_divisor_default = 5.0;
+const float scroll_divisor_default = 10.0;
 float scroll_divisor = scroll_divisor_default;
 const float scroll_divisor_min = 1.0;
 const float scroll_divisor_max = 30.0;
@@ -25,6 +23,9 @@ bool set_scrolling_horizontal = false;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [Layer_main] = LAYOUT_1x5(
         MS_BTN1, MS_BTN2, MS_BTN3, ST_MACRO_SCROLL, ST_QK_BOOT
+    ),
+    [Layer_secondary] = LAYOUT_1x5(
+        _______, MS_BTN3, _______, MS_BTN4, _______
     )
 };
 
@@ -95,7 +96,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         rgb_timed_out = false;
         rgb_timeout_counter=0; //reset timeout counter also, so that it will always count from the time the scroll wheel was active.
     }
-    if (set_scrolling || set_scrolling_macro || set_scrolling_horizontal) {
+    if (set_scrolling || set_scrolling_macro) {
         // Calculate and accumulate scroll values based on mouse movement and divisors
         scroll_accumulated_h += set_scrolling_horizontal ? 0 : ((float)mouse_report.x / scroll_divisor);
         scroll_accumulated_v += (float)mouse_report.y / scroll_divisor;

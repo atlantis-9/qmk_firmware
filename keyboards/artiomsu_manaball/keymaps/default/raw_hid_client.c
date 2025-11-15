@@ -73,11 +73,12 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             {
                 case HID_TB_DRAG_SCROLL:
                     set_scrolling = packet->payload[1];
-                    set_scrolling_horizontal = false;
                 break;
                 case HID_TB_D_S_1:
-                    set_scrolling_horizontal = packet->payload[1];
+                    set_scrolling_horizontal = !set_scrolling_horizontal;
                     set_scrolling = false;
+                    snprintf(info, sizeof(info), "horizontal scroll: %s", set_scrolling_horizontal ? "ON" : "OFF");
+                    raw_hid_send_info(&pc, info, sizeof(info));
                 break;
                 case HID_QK_BOOT:
                     rgblight_enable_noeeprom();
@@ -86,11 +87,26 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     reset_keyboard();
                 break;
                 case HID_QK_COMPILE:
-                    SEND_STRING("cd /temp/GIT/qmk_firmware && make clean && qmk flash -kb artiomsu_manaball -km default");
+                    SEND_STRING("make clean && qmk flash -kb artiomsu_manaball -km default");
                 break;
                 default:
                 break;
             }
+        break;
+        case HID_RAW_LAYER:
+            if(!is_packet_for_manaball(packet)){
+                break;
+            }
+            uint8_t layer = packet->payload[0];
+            if(layer == 9){ // this is the trackball layer from the dactyl
+                layer = Layer_secondary;
+                layer_on(layer);
+            }else{
+                layer_off(Layer_secondary);
+            }
+
+            snprintf(info, sizeof(info), "Layer: %d", layer);
+            raw_hid_send_info(&pc, info, sizeof(info));
         break;
         case HID_RAW_SET_SETTING:
             switch (packet->payload[0])
@@ -307,5 +323,18 @@ void raw_hid_send_info(struct raw_hid_client *client, char* info, uint8_t length
         HID_RAW_OP_INFO,
         (uint8_t *)info,
         length
+    );
+}
+
+void raw_hid_set_layer(struct raw_hid_client *client, uint8_t layer){
+    if(client == NULL){
+        return;
+    }
+    uint8_t data[1] = {layer};
+    raw_hid_send_to_router(
+        client,
+        HID_RAW_LAYER,
+        data,
+        1
     );
 }
