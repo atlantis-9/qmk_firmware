@@ -113,6 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case ST_MACRO_SCROLL:
             set_scrolling_macro = record->event.pressed;
+            record->event.pressed ? layer_on(Layer_secondary) : layer_off(Layer_secondary);
         break;
         case ST_QK_BOOT:
             if (record->event.pressed) {

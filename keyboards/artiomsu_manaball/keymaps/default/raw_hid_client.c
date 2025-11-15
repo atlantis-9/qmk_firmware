@@ -99,10 +99,10 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             uint8_t layer = packet->payload[0];
             if(layer == 9){ // this is the trackball layer from the dactyl
-                layer = Layer_secondary;
+                layer = Layer_raw_hid_router;
                 layer_on(layer);
             }else{
-                layer_off(Layer_secondary);
+                layer_off(Layer_raw_hid_router);
             }
 
             snprintf(info, sizeof(info), "Layer: %d", layer);
